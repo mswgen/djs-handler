@@ -1,0 +1,29 @@
+{
+  "name": "djs-handler",
+  "version": "1.0.0",
+  "description": "Discord.js command handler",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mswgen/djs-handler.git"
+  },
+  "keywords": [
+    "discord.js",
+    "command",
+    "handler"
+  ],
+  "author": "mswgen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mswgen/djs-handler/issues"
+  },
+  "homepage": "https://github.com/mswgen/djs-handler#readme",
+  "dependencies": {
+    "discord.js": "12.2.0",
+    "ascii-table": "0.0.9"
+  },
+  "types": "index.d.ts"
+}
