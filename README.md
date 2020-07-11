@@ -1,5 +1,6 @@
 # djs-handler
 Discord.js command handler
+
 ![npm bundle size](https://img.shields.io/bundlephobia/min/djs-handler)
 ![npm](https://img.shields.io/npm/dt/djs-handler)
 ![GitHub issues](https://img.shields.io/github/issues/mswgen/djs-handler)
@@ -21,4 +22,4 @@ client.config(/*path of command files*/); // config all the files and login with
 client.reload(/*path of command files*/); // reloads all the command files and resolve with the size of command files
 ```
 ## contributor
-mswgen
+[mswgen](https://github.com/mswgen)
