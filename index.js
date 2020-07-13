@@ -70,7 +70,7 @@ module.exports = {
                     if (this.commands.get(command)) {
                         this.commands.get(command).run(this, message, args, this.ops);
                     } else if (this.aliases.get(command)) {
-                        this.aliases.get(this.aliases.get(commands)).run(this, message, args, this.ops);
+                        this.commands.get(this.aliases.get(command)).run(this, message, args, this.ops);
                     }
                     if (this.typing) message.channel.stopTyping(true);
                 });
