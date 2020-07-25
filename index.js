@@ -76,6 +76,66 @@ module.exports = {
                 });
             });
         }
+        configDir (dir) {
+            const table = new ascii().setHeading('Commands', 'Load Status');
+            if (!dir) {
+                throw new Error('Commands file directory excepted');
+            }
+            let d = fs.readdirSync(dir);
+            let list = new Array();
+            for (let a of d) {
+                let e = fs.readdirSync(`${dir}${a}/`)
+                for (let b of e) {
+                    list.push({
+                        d: `../../${dir}${a}/${b}`,
+                        n: b
+                    });
+                }
+            }
+            
+                for (let file of list) {
+                    try {
+                        let pull = require(file.d);
+                        if (pull.name && pull.run) {
+                            this.commands.set(pull.name, pull);
+                            if (pull.aliases) {
+                                for (let alias of pull.aliases) {
+                                    this.aliases.set(alias, pull.name);
+                                }
+                            }
+                            table.addRow(file.n, '✅️');
+                        } else {
+                            table.addRow(file.n, `❌️ -> Name or run excepted`);
+                            continue;
+                        }
+                    } catch (e) {
+                        table.addRow(file.n, `❌️ -> ${e}`);
+                        continue;
+                    }
+                }
+                console.log(table.toString());
+                if (this.token) {
+                    this.login(this.token);
+                }
+                this.on('ready', () => {
+                    console.log(`Login ${this.user.username}`);
+                });
+                this.on('message', message => {
+                    if (message.author.bot && !this.allowBot) return;
+                    if (message.channel.type != 'text' && !this.allowDM) return;
+                    if (!message.content.startsWith(this.prefix)) return;
+                    if (this.typing) message.channel.startTyping(1);
+                    let args = message.content.substr(this.prefix.length).trim().split(' ');
+                    let command = args[0].toLowerCase();
+                    if (this.commands.get(command)) {
+                        this.commands.get(command).run(this, message, args, this.ops);
+                    } else if (this.aliases.get(command)) {
+                        this.commands.get(this.aliases.get(command)).run(this, message, args, this.ops);
+                    }
+                    if (this.typing) message.channel.stopTyping(true);
+                });
+            
+        }
         reload (dir) {
             const table = new ascii().setHeading('Commands', 'Reload Status');
             return new Promise((res, rej) => {
