@@ -3,7 +3,8 @@ declare module 'djs-handler' {
     export class Bot extends Client {
         constructor (token: string, option: HandlerConfigOption);
         config(dir: string): void;
-        reload(dir: string): number
+        configDir(dir: string): void;
+        reload(dir: string): number;
     }
     type HandlerConfigOption = {
         allowBot?: boolean,
