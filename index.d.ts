@@ -4,13 +4,14 @@ declare module 'djs-handler' {
         constructor (token: string, option: HandlerConfigOption);
         config(dir: string): void;
         configDir(dir: string): void;
-        reload(dir: string): number;
+        reload(): number;
+        reloadDir(): number;
     }
     type HandlerConfigOption = {
         allowBot?: boolean,
         allowDM?: boolean,
         typing?: boolean,
-        ops?: object,
+        ops?: any,
         prefix: string
     }
 }

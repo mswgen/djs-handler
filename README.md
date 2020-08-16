@@ -10,6 +10,20 @@ Discord.js command handler
 ![node-current](https://img.shields.io/node/v/djs-handler)
 
 ## Example
+for this file system:
+```
+commands directory
+- command1.js
+- command2.js
+- command3.js
+- command4.js
+main file
+shard file
+package.json file
+package-lock.json file
+...
+```
+`main file`
 ```js
 const { Bot } = require('djs-handler'); // import module
 const client = new Bot(/*your token here*/, { // constructor
@@ -19,7 +33,43 @@ const client = new Bot(/*your token here*/, { // constructor
     //you can add allowBot boolean to allow messaged from bot
 });
 client.config(/*path of command files*/); // config all the files and login with the given token
-client.reload(/*path of command files*/); // reloads all the command files and resolve with the size of command files
 ```
+`command file`
+```js
+module.exports = {
+    name: 'ping',
+    aliases: ['latency'],
+    run: async (client, message, args) => {
+        message.channel.send(client.ws.ping);
+    }
+}
+```
+`reload command file`
+```js
+module.exports = {
+    name: 'reload',
+    run: async (client, message, args) => {
+        if (message.author.id != 'dev_id') return message.channel.send('You aren\'t a developer'); // replace 'dev_id' with your id.
+        client.reload().then(x => message.channel.send(`reloaded ${x} commands`)).catch(() => message.channel.send('there was an error while reloading'));
+    }
+}
+```
+Tip: you can use Bot.configDir(dir) and Bot.reloadDir() for this file system:
+```
+commands directory
+- category1
+- - command1.js
+- - command2.js
+- category2
+- - command3.js
+- - command4.js
+main file
+shard file
+package.json
+package-lock.json
+...
+```
+## Bug report
+Please use the [issue tracker](https://github.com/mswgen/djs-handler/issues).
 ## contributor
 [mswgen](https://github.com/mswgen)
