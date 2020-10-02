@@ -27,12 +27,15 @@ package-lock.json file
 ```js
 const { Bot } = require('djs-handler'); // import module
 const client = new Bot(/*your token here*/, { // constructor
-    prefix: //your bot's prefix
-    //you can add typing boolean to use typing for messages
-    //you can add allowDM boolean to allow DM messages
-    //you can add allowBot boolean to allow messaged from bot
+    prefix: // your bot's prefix
+    // you can add typing boolean to use typing for messages
+    // you can add allowAllDM boolean to allow DM messages from everyone
+    // you can ass DMWhitelist array with Discord user IDs to allow DM messages from specific users
+    // you can add allowAllBot boolean to allow messages from all bot
+    // you can ass BotWhitelist array with Discord user IDs to allow messages from specific bots
 });
 client.config(/*path of command files*/); // config all the files and login with the given token
+// client.configDir is also available. See the references for more information.
 ```
 `command file`
 ```js

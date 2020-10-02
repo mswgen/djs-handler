@@ -8,8 +8,10 @@ declare module 'djs-handler' {
         reloadDir(): number;
     }
     type HandlerConfigOption = {
-        allowBot?: boolean,
-        allowDM?: boolean,
+        allowAllBot?: boolean,
+        BotWhitelist?: Array<string>,
+        allowAllDM?: boolean,
+        DMWhitelist?: Array<string>,
         typing?: boolean,
         ops?: any,
         prefix: string

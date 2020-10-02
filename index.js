@@ -8,15 +8,16 @@ module.exports = {
             this.commands = new Discord.Collection();
             this.aliases = new Discord.Collection();
             this.token = token;
-            if (option.allowBot) {
-                this.allowBot = option.allowBot;
+            if (option.allowAllBot) {
+                this.allowAllBot = option.allowAllBot;
             } else {
-                this.allowBot = false;
+                this.allowAllBot = false;
             }
-            if (option.allowDM) {
-                this.allowDM = option.allowDM; 
+
+            if (option.allowAllDM) {
+                this.allowAllDM = option.allowAllDM; 
             } else {
-                this.allowDM = false;
+                this.allowAllDM = false;
             }
             if (option.typing) {
                 this.typing = option.typing; 
@@ -25,6 +26,8 @@ module.exports = {
             }
             if (!option.prefix) throw new Error('Prefix excepted');
             this.prefix = option.prefix;
+            this.botWhiteList = option.botWhiteList;
+            this.DMWhiteList = option.DMWhiteList;
             if (option.ops) this.ops = option.ops;
         };
         config (dir) {
@@ -62,8 +65,8 @@ module.exports = {
                     console.log(`Login ${this.user.username}`);
                 });
                 this.on('message', message => {
-                    if (message.author.bot && !this.allowBot) return;
-                    if (message.channel.type != 'text' && !this.allowDM) return;
+                    if (message.author.bot && !this.allowAllBot && !this.botWhiteList.includes(message.author.id)) return;
+                    if (message.channel.type != 'text' && !this.allowAllDM && !this.DMWhiteList.includes(message.author.id)) return;
                     if (!message.content.startsWith(this.prefix)) return;
                     if (this.typing) message.channel.startTyping(1);
                     let args = message.content.substr(this.prefix.length).trim().split(' ');
