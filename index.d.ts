@@ -1,7 +1,7 @@
 declare module 'djs-handler' {
-    import { Client } from 'discord.js';
+    import { Client, ClientOptions } from 'discord.js';
     export class Bot extends Client {
-        constructor (token: string, option: HandlerConfigOption);
+        constructor (token: string, option: HandlerConfigOption, discordOption: ClientOptions);
         config(dir: string): void;
         configDir(dir: string): void;
         reload(): number;

@@ -3,8 +3,8 @@ const fs = require('fs');
 const ascii = require('ascii-table');
 module.exports = {
     Bot: class extends Discord.Client {
-        constructor (token, option, ...args) {
-            super(...args);
+        constructor (token, option, discordOption) {
+            super(discordOption);
             this.commands = new Discord.Collection();
             this.aliases = new Discord.Collection();
             this.token = token;
