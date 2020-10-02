@@ -65,8 +65,8 @@ module.exports = {
                     console.log(`Login ${this.user.username}`);
                 });
                 this.on('message', message => {
-                    if (message.author.bot && !this.allowAllBot && !this.botWhiteList.includes(message.author.id)) return;
-                    if (message.channel.type != 'text' && !this.allowAllDM && !this.DMWhiteList.includes(message.author.id)) return;
+                    if (message.author.bot && !this.allowAllBot && (!this.botWhiteList || !this.botWhiteList.includes(message.author.id))) return;
+                    if (message.channel.type != 'text' && !this.allowAllDM && (!this.DMWhitelist || !this.DMWhiteList.includes(message.author.id))) return;
                     if (!message.content.startsWith(this.prefix)) return;
                     if (this.typing) message.channel.startTyping(1);
                     let args = message.content.substr(this.prefix.length).trim().split(' ');
